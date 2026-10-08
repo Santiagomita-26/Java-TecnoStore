@@ -15,8 +15,8 @@ public class MarcaDao {
     public void insertar (Marca marca){
         
         try{
-        Conexion conexion = new Conexion();
-        Connection connection= conexion.conexion();
+        Conexion conexion = Conexion.getInstancia(); // Patron Singleton
+        Connection connection = conexion.conexion();
         
         CallableStatement statement = connection.prepareCall("{Call insertar_marca(?)}");
         statement.setString(1 , marca.getNombre());
@@ -35,8 +35,8 @@ public List<Marca> listar() {
 
     List<Marca> marcas = new ArrayList<>();
 
-    try {
-        Conexion conexion = new Conexion();
+        try {
+        Conexion conexion = Conexion.getInstancia(); // Patron Singleton
         Connection connection = conexion.conexion();
 
         CallableStatement statement =  connection.prepareCall("{CALL listar_marcas()}");
@@ -67,11 +67,10 @@ public List<Marca> listar() {
     public void actualizar(Marca marca) {
 
         try {
-            Conexion conexion = new Conexion();
+            Conexion conexion = Conexion.getInstancia(); // Patron Singleton 
             Connection connection = conexion.conexion();
 
-            CallableStatement statement =
-                    connection.prepareCall("{CALL actualizar_marca(?, ?)}");
+            CallableStatement statement = connection.prepareCall("{CALL actualizar_marca(?, ?)}");
 
             statement.setInt(1, marca.getId());
             statement.setString(2, marca.getNombre());
@@ -87,7 +86,7 @@ public List<Marca> listar() {
     public void eliminar(Marca marca) {
 
     try {
-        Conexion conexion = new Conexion();
+        Conexion conexion = Conexion.getInstancia(); // Patron Singleton
         Connection connection = conexion.conexion();
 
         CallableStatement statement = connection.prepareCall("{CALL eliminar_marca(?)}");
@@ -101,7 +100,7 @@ public List<Marca> listar() {
         }
     }
 
-
-
     
 }
+
+
