@@ -21,6 +21,8 @@ public class MarcaDao {
         CallableStatement statement = connection.prepareCall("{Call insertar_marca(?)}");
         statement.setString(1 , marca.getNombre());
         
+        // Aqui le decimos a MYSQL que le vamos a enviar un String el cual sera el nombre de la marca
+        
         statement.execute();
         
     }catch (SQLException e){
@@ -39,32 +41,66 @@ public List<Marca> listar() {
 
         CallableStatement statement =  connection.prepareCall("{CALL listar_marcas()}");
 
-        ResultSet resultado = statement.executeQuery();
+        ResultSet resultado = statement.executeQuery(); 
+        
+        // - RESULTSET --> me permite recorrer las filas/columnas que me devuelve la consulta sql 
 
         while (resultado.next()) {
             
-
+            // Este while lo que me indica es que si sigue existiendo otra fila mas entra de nuevo al while
+            
             int id = resultado.getInt("id");
             String nombre = resultado.getString("nombre");
-
             Marca marca = new Marca(id, nombre);
-
+            
+            // Con los datos obtenidos creamos el objeto marca y lo agregamos a la lista
             marcas.add(marca);
         }
-        
-        System.out.println("Marcas encontradas:");
-
-            for (Marca marca : marcas) {
-                System.out.println(marca);
-            }
-        
-
     } catch (SQLException e) {
         System.out.println("Error al listar las marcas: " + e.getMessage());
     }
 
     return marcas;
 }
+
+
+    public void actualizar(Marca marca) {
+
+        try {
+            Conexion conexion = new Conexion();
+            Connection connection = conexion.conexion();
+
+            CallableStatement statement =
+                    connection.prepareCall("{CALL actualizar_marca(?, ?)}");
+
+            statement.setInt(1, marca.getId());
+            statement.setString(2, marca.getNombre());
+
+            statement.execute();
+            System.out.println("Marca actualizada correctamente.");
+
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar la marca: " + e.getMessage());
+        }
+    }
+
+    public void eliminar(Marca marca) {
+
+    try {
+        Conexion conexion = new Conexion();
+        Connection connection = conexion.conexion();
+
+        CallableStatement statement = connection.prepareCall("{CALL eliminar_marca(?)}");
+
+        statement.setInt(1, marca.getId());
+        statement.execute();
+        System.out.println("Marca eliminada correctamente.");
+
+    } catch (SQLException e) {
+        System.out.println("Error al eliminar la marca: " + e.getMessage());
+        }
+    }
+
 
 
     
