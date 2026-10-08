@@ -1,1 +1,13 @@
+model\Marca.class
+model\Venta.class
+model\Celular.class
+model\Usuario.class
+dao\MarcaDao.class
 com\mycompany\tecnostore\TecnoStore.class
+model\Usuario$Rol$rol.class
+model\Celular$Gama.class
+model\Modelo.class
+dao\Conexion.class
+model\Cliente.class
+model\Usuario$Rol.class
+model\ProductoVenta.class

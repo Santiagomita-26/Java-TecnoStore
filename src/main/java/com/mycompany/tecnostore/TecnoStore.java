@@ -2,11 +2,16 @@
 
 package com.mycompany.tecnostore;
 
+import dao.MarcaDao;
+
 
 public class TecnoStore {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+      
+             MarcaDao marcaDao = new MarcaDao();
+
+            marcaDao.listar();
     }
 }
 

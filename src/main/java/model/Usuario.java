@@ -17,12 +17,14 @@ public class Usuario {
     private String password;
     private Rol rol;
 
-    public Usuario( String correo, String password, Rol rol) {
-        this.id = GeneradorIds.nuevaId();
+    public Usuario(int id, String correo, String password, Rol rol) {
+        this.id = id;
         this.correo = correo;
         this.password = password;
         this.rol = rol;
     }
+
+      
 
     public int getId() {
         return id;

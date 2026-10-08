@@ -10,13 +10,15 @@ public class Cliente {
     private String identificacion ;
     private String telefono;
 
-    public Cliente(Usuario usuario, String nombre, String identificacion, String telefono) {
-        this.id = GeneradorIds.nuevaId();
+    public Cliente(int id, Usuario usuario, String nombre, String identificacion, String telefono) {
+        this.id = id;
         this.usuario = usuario;
         this.nombre = nombre;
         this.identificacion = identificacion;
         this.telefono = telefono;
     }
+
+   
 
     public int getId() {
         return id;

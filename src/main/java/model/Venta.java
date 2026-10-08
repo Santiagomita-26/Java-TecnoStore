@@ -12,13 +12,15 @@ public class Venta {
     List<ProductoVenta> productos;
     private double total;
 
-    public Venta( Cliente cliente, LocalDateTime fecha, List<ProductoVenta> productos, double total) {
-        this.id = GeneradorIds.nuevaId();
+    public Venta(int id, Cliente cliente, LocalDateTime fecha, List<ProductoVenta> productos, double total) {
+        this.id = id;
         this.cliente = cliente;
         this.fecha = fecha;
         this.productos = productos;
         this.total = total;
     }
+
+   
 
     public int getId() {
         return id;

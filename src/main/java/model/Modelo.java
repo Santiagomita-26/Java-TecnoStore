@@ -14,11 +14,13 @@ public class Modelo {
     private String nombre ;
     private Marca marca ;
 
-    public Modelo( String nombre, Marca marca) {
-        this.id = GeneradorIds.nuevaId();
+    public Modelo(int id, String nombre, Marca marca) {
+        this.id = id;
         this.nombre = nombre;
         this.marca = marca;
     }
+
+    
     
     
     

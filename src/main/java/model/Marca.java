@@ -4,19 +4,22 @@
  */
 package model;
 
-/**
- *
- * @author Usuario
- */
+
 public class Marca {
     
     private int id ;
     private String nombre ;
 
-    public Marca( String nombre) {
-        this.id = GeneradorIds.nuevaId();
+        public Marca(String nombre) { //CREA NUEVOS OBJETOS
         this.nombre = nombre;
     }
+
+        public Marca(int id, String nombre) { //RECONSTRUYE LOS OBJETOS EXISTENTES DE MYSQL
+        this.id = id;
+        this.nombre = nombre;
+    }
+
+    
 
     public int getId() {
         return id;

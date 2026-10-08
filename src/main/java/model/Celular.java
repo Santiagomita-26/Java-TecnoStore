@@ -1,6 +1,5 @@
 
 package model;
-import model.GeneradorIds;
 
 public class Celular {
     
@@ -15,14 +14,16 @@ public class Celular {
     private double precio ;
     private int stock;
 
-    public Celular(Modelo modelo, String sistemaOperativo, Gama gama, double precio, int stock) {
-        this.id = GeneradorIds.nuevaId();
+    public Celular(int id, Modelo modelo, String sistemaOperativo, Gama gama, double precio, int stock) {
+        this.id = id;
         this.modelo = modelo;
         this.sistemaOperativo = sistemaOperativo;
         this.gama = gama;
         this.precio = precio;
         this.stock = stock;
     }
+
+   
 
   
 
