@@ -4,18 +4,22 @@ package model;
 
 public class Usuario {
     
-    public class Rol {
-    
-    public enum rol {
-        ADMINISTRADOR , USUARIO
-    }
    
+    public enum Rol {
+    ADMIN, CLIENTE
 }
+    
     
     private int id ;
     private String correo ;
     private String password;
     private Rol rol;
+
+    public Usuario(String correo, String password, Rol rol) {
+        this.correo = correo;
+        this.password = password;
+        this.rol = rol;
+    }
 
     public Usuario(int id, String correo, String password, Rol rol) {
         this.id = id;
@@ -23,7 +27,8 @@ public class Usuario {
         this.password = password;
         this.rol = rol;
     }
-
+    
+    
       
 
     public int getId() {

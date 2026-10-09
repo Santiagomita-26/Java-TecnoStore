@@ -7,17 +7,24 @@ public class Cliente {
     private int id ;
     private Usuario usuario;
     private String nombre;
-    private String identificacion ;
+    private long identificacion ;
     private String telefono;
 
-    public Cliente(int id, Usuario usuario, String nombre, String identificacion, String telefono) {
-        this.id = id;
+    public Cliente(Usuario usuario, String nombre, long identificacion, String telefono) {
         this.usuario = usuario;
         this.nombre = nombre;
         this.identificacion = identificacion;
         this.telefono = telefono;
     }
 
+    public Cliente(int id, Usuario usuario, String nombre, long identificacion, String telefono) {
+        this.id = id;
+        this.usuario = usuario;
+        this.nombre = nombre;
+        this.identificacion = identificacion;
+        this.telefono = telefono;
+    }
+    
    
 
     public int getId() {
@@ -40,11 +47,11 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    public String getIdentificacion() {
+    public long getIdentificacion() {
         return identificacion;
     }
 
-    public void setIdentificacion(String identificacion) {
+    public void setIdentificacion(long identificacion) {
         this.identificacion = identificacion;
     }
 
