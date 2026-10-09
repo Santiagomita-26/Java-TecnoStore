@@ -12,9 +12,11 @@ controller\GestionarLogin.class
 controller\GestionarAdministrador.class
 model\Celular$Gama.class
 controller\GestionarCliente.class
+controller\GestionarMarcas.class
 controller\UsuarioController.class
 dao\Conexion.class
 dao\UsuarioDao.class
 model\Cliente.class
 model\Usuario$Rol.class
+view\ingresodatos\DatosMarca.class
 model\ProductoVenta.class

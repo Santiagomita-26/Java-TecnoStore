@@ -25,6 +25,9 @@ public class MarcaDao {
         
         statement.execute();
         
+            System.out.println("  ");
+            System.out.println("======Marca agregada correctamente======");
+        
     }catch (SQLException e){
             System.out.println("Error al insertar la marca" + e.getMessage());
         }

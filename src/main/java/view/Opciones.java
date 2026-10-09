@@ -39,7 +39,7 @@ public class Opciones {
     }
      
      
-     public int Crud_general() {
+     public int Crud_marcas() {
         return v.validarEntero("""
                                 1- Añadir.
                                 2- Listar.
@@ -47,8 +47,17 @@ public class Opciones {
                                 4- Eliminar.
                                 5- Salir.
                                 """);
-        
-    }
+     }
+     
+     public int Crud_clientes() {
+        return v.validarEntero("""
+                                1- Añadir.
+                                2- Listar.
+                                3- Actualizar.
+                                4- Eliminar.
+                                5- Salir.
+                                """);
+     }
      
      public int Crud_celulares() {
         return v.validarEntero("""

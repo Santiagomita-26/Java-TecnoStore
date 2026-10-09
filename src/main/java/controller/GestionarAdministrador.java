@@ -7,6 +7,8 @@ public class GestionarAdministrador {
     private final Opciones opciones = new Opciones();
 
     public void iniciar() {
+        
+        GestionarMarcas gestionarMarcas = new GestionarMarcas();
             
         System.out.println("  ");
         System.out.println("=======NOS ALEGRA TENERTE EN TECNOSTORE=======");
@@ -23,7 +25,7 @@ public class GestionarAdministrador {
             switch (opcion) {
                 case 1 -> System.out.println( "Gestión de celulares .");
                 
-                case 2 -> System.out.println( "Gestión de marcas ." );
+                case 2 -> gestionarMarcas.iniciar();
                 
                 case 3 -> System.out.println( "Gestión de clientes .");
                 
