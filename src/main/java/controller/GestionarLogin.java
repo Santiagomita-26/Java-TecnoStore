@@ -31,7 +31,6 @@ public class GestionarLogin {
     private void iniciarSesion() {
 
         String correo = validaciones.validarTexto( "Ingresa tu correo:");
-
         String password = validaciones.validarTexto("Ingresa tu contraseña:");
 
         Usuario usuario = usuarioController.login(correo, password);
