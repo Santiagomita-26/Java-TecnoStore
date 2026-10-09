@@ -21,7 +21,7 @@ public class GestionarLogin {
 
             switch (opcion) {
                 case 1 -> iniciarSesion();
-                case 2 -> System.out.println( "El registro estará disponible próximamente.");
+                case 2 -> usuarioController.registrarCliente();
                 case 3 -> System.out.println( "Gracias por usar TecnoStore.");
                 default -> System.out.println("Opción no válida.");
             }
@@ -40,8 +40,6 @@ public class GestionarLogin {
             System.out.println("Correo o contraseña incorrectos.");
             return;
         }
-
-        System.out.println( "Bienvenido a TecnoStore" );
 
         switch (usuario.getRol()) {
             case ADMIN -> menuAdministrador.iniciar();

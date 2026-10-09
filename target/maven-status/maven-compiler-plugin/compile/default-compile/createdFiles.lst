@@ -2,6 +2,7 @@ model\Marca.class
 view\Opciones.class
 view\Validaciones.class
 model\Venta.class
+view\ingresodatos\DatosCliente.class
 model\Celular.class
 model\Usuario.class
 dao\MarcaDao.class

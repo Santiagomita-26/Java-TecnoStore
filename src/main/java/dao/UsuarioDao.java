@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import model.Cliente;
 
 
 public class UsuarioDao {
@@ -45,5 +46,33 @@ public class UsuarioDao {
             System.out.println("Error al iniciar sesión: " + e.getMessage());
         }
         return usuario;
+    }
+    
+    public boolean registrarCliente(Usuario usuario, Cliente cliente) {
+
+        try {
+            Conexion conexion = Conexion.getInstancia();
+
+            try (
+                Connection connection = conexion.conexion();
+                CallableStatement statement = connection.prepareCall("{CALL registrar_cliente(?, ?, ?, ?, ?)}")
+            ) {
+                statement.setString(1, usuario.getCorreo());
+                statement.setString(2, usuario.getPassword());
+                statement.setString(3, cliente.getNombre());
+                statement.setLong(4, cliente.getIdentificacion());
+                statement.setString(5, cliente.getTelefono());
+
+                statement.execute();
+
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(
+                "Error al registrar el cliente: " + e.getMessage()
+            );
+            return false;
+        }
     }
 }

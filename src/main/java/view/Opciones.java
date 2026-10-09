@@ -22,7 +22,7 @@ public class Opciones {
                                 1- Ver celulares.
                                 2- Comprar.
                                 3- Mis compras.
-                                4- Cerrar sesiom.
+                                4- Cerrar sesion.
                                 """);
         
     }

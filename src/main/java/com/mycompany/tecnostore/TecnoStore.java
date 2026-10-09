@@ -10,7 +10,7 @@ public class TecnoStore {
 
     public static void main(String[] args) {
         
-         GestionarLogin menu = new GestionarLogin();
+        GestionarLogin menu = new GestionarLogin();
         menu.iniciar();
     }
             
