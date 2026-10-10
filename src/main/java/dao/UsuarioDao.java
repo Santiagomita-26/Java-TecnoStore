@@ -75,4 +75,43 @@ public class UsuarioDao {
             return false;
         }
     }
+    
+    public Cliente buscarPorUsuario(int usuarioId) {
+
+    Cliente cliente = null;
+
+    try {
+        Conexion conexion = Conexion.getInstancia();
+        Connection connection = conexion.conexion();
+
+        CallableStatement statement = connection.prepareCall("{CALL buscar_cliente_por_usuario(?)}");
+
+        statement.setInt(1, usuarioId);
+
+        ResultSet resultado = statement.executeQuery();
+
+        if (resultado.next()) {
+            int id = resultado.getInt("id");
+            String nombre = resultado.getString("nombre");
+            long identificacion = resultado.getLong("identificacion");
+            String telefono = resultado.getString("telefono");
+            String correo = resultado.getString("correo");
+
+            Usuario usuario = new Usuario(usuarioId, correo, "", Usuario.Rol.CLIENTE);
+
+            cliente = new Cliente(id, usuario, nombre, identificacion, telefono);
+        }
+
+        resultado.close();
+        statement.close();
+        connection.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error al buscar el cliente: " + e.getMessage());
+    }
+
+        return cliente;
+    }
+    
+    
 }

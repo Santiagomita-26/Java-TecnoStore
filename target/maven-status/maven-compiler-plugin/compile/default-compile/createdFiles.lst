@@ -1,4 +1,5 @@
 model\Marca.class
+controller\GestionarCompras.class
 view\Validaciones.class
 model\Venta.class
 model\Celular.class

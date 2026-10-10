@@ -15,7 +15,7 @@ public class GestionarLogin {
     private final UsuarioDao usuarioDao = new UsuarioDao();
     private final DatosCliente datosCliente = new DatosCliente();
     private final GestionarAdministrador menuAdministrador =new GestionarAdministrador();
-    private final GestionarCliente menuCliente =new GestionarCliente();
+    private final GestionarCompras gestionarCompras =new GestionarCompras();
 
     public void iniciar() {
 
@@ -48,7 +48,7 @@ public class GestionarLogin {
 
         switch (usuario.getRol()) {
             case ADMIN -> menuAdministrador.iniciar();
-            case CLIENTE -> menuCliente.iniciar();
+            case CLIENTE -> gestionarCompras.iniciar(usuario); 
         }
     }
 
