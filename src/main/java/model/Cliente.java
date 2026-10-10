@@ -65,14 +65,14 @@ public class Cliente {
     
     
     @Override
-    public String toString() {
-        return """
-               Id:                                       %s
-               Usuario:                                  %s
-               Nombre:                                   %s
-               Identificacion:                           %s
-               Telefono:                                 %s
-               """.formatted(id, usuario, nombre, identificacion, telefono);
+        public String toString() {
+            return """
+                   Id:                  %s
+                   Nombre:              %s
+                   Correo:              %s
+                   Identificación:      %s
+                   Teléfono:            %s
+                   """.formatted( id,nombre,usuario.getCorreo(),identificacion,telefono);
     }
     
     

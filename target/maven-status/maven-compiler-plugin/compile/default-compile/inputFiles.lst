@@ -1,9 +1,11 @@
 C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\com\mycompany\tecnostore\TecnoStore.java
 C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\controller\GestionarAdministrador.java
+C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\controller\GestionarCelulares.java
 C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\controller\GestionarCliente.java
 C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\controller\GestionarLogin.java
 C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\controller\GestionarMarcas.java
-C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\controller\UsuarioController.java
+C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\dao\CelularDao.java
+C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\dao\ClienteDao.java
 C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\dao\Conexion.java
 C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\dao\MarcaDao.java
 C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\dao\UsuarioDao.java
@@ -13,6 +15,7 @@ C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\model\Marca
 C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\model\ProductoVenta.java
 C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\model\Usuario.java
 C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\model\Venta.java
+C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\view\ingresoDatos\DatosCelular.java
 C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\view\ingresoDatos\DatosCliente.java
 C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\view\ingresoDatos\DatosMarca.java
 C:\Users\Usuario\Documents\NetBeansProjects\TecnoStore\src\main\java\view\Opciones.java

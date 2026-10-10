@@ -11,4 +11,6 @@ public class DatosCliente {
     public String ingresarTelefono() {return v.validarTexto("Ingresa tu teléfono:" ); }
     public String ingresarCorreo() {return v.validarTexto("Ingresa tu correo:" );}
     public String ingresarPassword() {return v.validarTexto("Ingresa tu contraseña:");}
+    
+    public int ingresarId() { return v.validarEntero("Ingresa el ID del cliente:");}
 }

@@ -15,6 +15,15 @@ public class Celular {
     private double precio ;
     private int stock;
 
+    public Celular(String nombre, Marca marca, String sistemaOperativo, Gama gama, double precio, int stock) {
+        this.nombre = nombre;
+        this.marca = marca;
+        this.sistemaOperativo = sistemaOperativo;
+        this.gama = gama;
+        this.precio = precio;
+        this.stock = stock;
+    }
+    
     public Celular(int id, String nombre, Marca marca, String sistemaOperativo, Gama gama, double precio, int stock) {
         this.id = id;
         this.nombre = nombre;
@@ -77,23 +86,21 @@ public class Celular {
     public void setStock(int stock) {
         this.stock = stock;
     }
-
-   
-  
     
     
-    @Override
-    public String toString() {
-        return """
-               Id:                                      %s
-               Nombre:                                  %s
-               Sistema Operativo:                       %s
-               Gama:                                    %s
-               Precio:                                  %s
-               Stock:                                   %s
-               """.formatted(id, nombre, sistemaOperativo, gama, precio, stock);
-    }
-
+        @Override
+        public String toString() {
+            return """
+                   Id:                   %s
+                   Nombre:               %s
+                   Marca:                %s
+                   Sistema Operativo:    %s
+                   Gama:                 %s
+                   Precio:               %s
+                   Stock:                %s
+                   """.formatted(id, nombre, marca.getNombre(),sistemaOperativo,gama, precio,stock);
+                }
 }
+
        
 
