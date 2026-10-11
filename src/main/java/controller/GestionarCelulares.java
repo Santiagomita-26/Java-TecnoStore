@@ -28,7 +28,7 @@ public class GestionarCelulares {
                 case 2 -> listar();
                 case 3 -> actualizar();
                 case 4 -> eliminar();
-                case 5 -> System.out.println("Los filtros se implementarán después.");
+                case 5 -> filtrar();
                 case 6 -> System.out.println("Saliendo de la gestión de celulares...");
                 default -> System.out.println("Opción no válida.");
             }
@@ -191,4 +191,76 @@ public class GestionarCelulares {
 
         return null;
     }
+    
+    
+    // AQUI USE STREAM API PARA HACER LOS FILTROS CON EL .FILTER
+    
+    private void filtrar() {
+
+    int opcion;
+
+    do {
+        opcion = opciones.Filtros();
+
+        switch (opcion) {
+            case 1 -> filtrarPorMarca();
+            case 2 -> filtrarPorGama();
+            case 3 -> filtrarPorSistemaOperativo();
+            case 4 -> System.out.println("Saliendo de los filtros...");
+            default -> System.out.println("Opción no válida.");
+        }
+
+    } while (opcion != 4);
+}
+    
+    private void filtrarPorMarca() {
+
+        List<Marca> marcas = marcaDao.listar();
+
+        if (marcas.isEmpty()) {System.out.println("No hay marcas registradas."); return;}
+
+        Marca marcaSeleccionada = seleccionarMarca(marcas);
+
+        if (marcaSeleccionada == null) { return; }
+
+        List<Celular> celulares = celularDao.listar();
+
+        List<Celular> filtrados = celulares.stream() .filter(celular -> celular.getMarca().getId()== marcaSeleccionada.getId()).toList();
+        mostrarFiltrados(filtrados);
+    }
+    
+        private void filtrarPorGama() {
+
+            Celular.Gama gama = datos.ingresarGama();
+
+            List<Celular> celulares = celularDao.listar();
+
+            List<Celular> filtrados = celulares.stream().filter(celular -> celular.getGama() == gama).toList();
+            mostrarFiltrados(filtrados);
+    }
+    
+        private void filtrarPorSistemaOperativo() {
+
+            String sistema = datos.ingresarSistemaOperativo();
+
+            List<Celular> celulares = celularDao.listar();
+
+            List<Celular> filtrados = celulares.stream() .filter(celular -> celular.getSistemaOperativo().equalsIgnoreCase(sistema)).toList();
+            mostrarFiltrados(filtrados);
+    }
+        
+        private void mostrarFiltrados(List<Celular> celulares) {
+
+            if (celulares.isEmpty()) { System.out.println("No se encontraron celulares con ese filtro.");
+                return;
+            }
+           
+            System.out.println("\n--- RESULTADOS DEL FILTRO ---");
+
+            celulares.forEach(celular -> {System.out.println(celular);
+                System.out.println("------------------------------");
+            });
+    }
+    
+    
 }
