@@ -63,7 +63,6 @@ public class GestionarLogin {
         String password = datosCliente.ingresarPassword();
 
         Usuario usuario = new Usuario(correo,password,Usuario.Rol.CLIENTE);
-
         Cliente cliente = new Cliente(usuario,nombre, identificacion,telefono);
 
         boolean registrado = usuarioDao.registrarCliente( usuario,cliente);

@@ -11,6 +11,9 @@ import model.ProductoVenta;
 import model.Usuario;
 import view.Opciones;
 import view.Validaciones;
+import dao.ComprasDao;
+import java.time.LocalDateTime;
+import model.Venta;
 
 
 
@@ -20,7 +23,9 @@ public class GestionarCompras {
     private final Validaciones validaciones = new Validaciones();
     private final CelularDao celularDao = new CelularDao();
     private final ClienteDao clienteDao = new ClienteDao();
+    private final ComprasDao comprasDao = new ComprasDao();
     private Cliente cliente;
+    
     
     public void iniciar(Usuario usuario) {
        cliente = clienteDao.buscarPorUsuario(usuario.getId());
@@ -40,7 +45,7 @@ public class GestionarCompras {
         switch (opcion) {
             case 1 -> mostrarCelulares();
             case 2 -> comprar();
-            case 3 -> System.out.println("Consulta de compras.");
+            case 3 -> verMisCompras();
             case 4 -> System.out.println("Cerrando sesión...");
             default -> System.out.println("Opción no válida.");
         }
@@ -73,9 +78,6 @@ public class GestionarCompras {
     }
     
     
-    
-    
-    
     private void comprar() {
 
     List<ProductoVenta> productos = new ArrayList<>();
@@ -98,10 +100,7 @@ public class GestionarCompras {
             }
         }
 
-        if (!disponibles) {
-            System.out.println("No hay celulares disponibles.");
-            return;
-        }
+        if (!disponibles) { System.out.println("No hay celulares disponibles."); return;}
 
         id = validaciones.validarEntero( "Ingresa el ID del celular que deseas comprar (0 para terminar):");
 
@@ -123,9 +122,7 @@ public class GestionarCompras {
             continue;
         }
 
-        int cantidad = validaciones.validarEntero(
-            "¿Cuántas unidades deseas comprar?"
-        );
+        int cantidad = validaciones.validarEntero("¿Cuántas unidades deseas comprar?");
 
         if (cantidad <= 0) {
             System.out.println("La cantidad debe ser mayor que cero.");
@@ -133,8 +130,7 @@ public class GestionarCompras {
         }
 
         if (cantidad > seleccionado.getStock()) {
-            System.out.println("Stock insuficiente. Disponible: "
-                    + seleccionado.getStock());
+            System.out.println("Stock insuficiente. Disponible: " + seleccionado.getStock());
             continue;
         }
 
@@ -153,8 +149,7 @@ public class GestionarCompras {
     System.out.println("\n=== RESUMEN DE LA COMPRA ===");
 
     for (ProductoVenta producto : productos) {
-        double subtotalProducto =
-                producto.getCelular().getPrecio() * producto.getCantidad();
+        double subtotalProducto = producto.getCelular().getPrecio() * producto.getCantidad();
 
         subtotalCompra += subtotalProducto;
 
@@ -171,5 +166,55 @@ public class GestionarCompras {
     System.out.printf("Subtotal: $%,.0f%n", subtotalCompra);
     System.out.printf("IVA (19 %%): $%,.0f%n", iva);
     System.out.printf("Total: $%,.0f%n", total);
+    
+    int confirmar = validaciones.validarEntero( "¿Deseas confirmar la compra? (1 = Sí, 2 = No):");
+
+        if (confirmar != 1) {
+            System.out.println("Compra cancelada.");
+            return;
+        }
+
+        Venta venta = new Venta(cliente,LocalDateTime.now(),productos,total);
+
+        boolean registrada = comprasDao.registrarVenta(venta);
+
+        if (!registrada) {
+            System.out.println("No se pudo completar la compra.");
+        }
     }     
+    
+    
+    
+    private void verMisCompras() {
+
+    List<Venta> ventas = comprasDao.listarComprasCliente(cliente);
+
+    if (ventas.isEmpty()) {
+        System.out.println("\nTodavía no tienes compras registradas.");
+        return;
+    }
+
+    System.out.println("\n========== MIS COMPRAS ==========");
+
+    for (Venta venta : ventas) {
+
+        System.out.println("\nFecha: " + venta.getFecha());
+
+        for (ProductoVenta producto : venta.getProductos()) {
+
+            double subtotal = producto.getCelular().getPrecio()* producto.getCantidad();
+
+            System.out.println("Celular: "+ producto.getCelular().getNombre());
+
+            System.out.println("Cantidad: "+ producto.getCantidad());
+
+            System.out.printf("Subtotal: $%,.0f%n", subtotal);
+            System.out.println("---------------------------------");
+        }
+
+        System.out.printf("Total pagado (IVA incluido): $%,.0f%n",venta.getTotal());
+        System.out.println("=================================");
+    }
+}
+
 }

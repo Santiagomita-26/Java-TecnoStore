@@ -6,6 +6,7 @@ model\Celular.class
 model\Usuario.class
 dao\MarcaDao.class
 dao\ClienteDao.class
+dao\ComprasDao.class
 model\Celular$Gama.class
 view\ingresodatos\DatosCelular.class
 model\Cliente.class
