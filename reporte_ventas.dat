@@ -1,0 +1,47 @@
+========== REPORTE DE VENTAS TECNOSTORE ==========
+
+VENTA #3
+Fecha: 2026-10-11 19:28:29.0
+Cliente: Jose Daniel Pulido
+Identificacion: 1092535408
+Telefono: 32198073812
+
+ARTICULOS:
+Celular: Iphone 12 mini
+Cantidad: 6
+Subtotal: $10,800,000
+----------------------------------------
+TOTAL FINAL: $12,852,000
+==================================================
+
+VENTA #2
+Fecha: 2026-10-11 16:42:24.0
+Cliente: Cliente Prueba
+Identificacion: 1098765432
+Telefono: 3001234567
+
+ARTICULOS:
+Celular: Iphone 12 mini
+Cantidad: 4
+Subtotal: $7,200,000
+----------------------------------------
+TOTAL FINAL: $8,568,000
+==================================================
+
+VENTA #1
+Fecha: 2026-10-11 16:00:16.0
+Cliente: Cliente Prueba
+Identificacion: 1098765432
+Telefono: 3001234567
+
+ARTICULOS:
+Celular: Iphone 12 mini
+Cantidad: 1
+Subtotal: $1,800,000
+----------------------------------------
+Celular: Galaxy S25 ULTRA
+Cantidad: 1
+Subtotal: $3,500,000
+----------------------------------------
+TOTAL FINAL: $6,307,000
+==================================================

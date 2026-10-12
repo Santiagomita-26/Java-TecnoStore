@@ -191,8 +191,7 @@ public class GestionarCelulares {
 
         return null;
     }
-    
-    
+      
     // AQUI USE STREAM API PARA HACER LOS FILTROS CON EL .FILTER
     
     private void filtrar() {
@@ -261,6 +260,5 @@ public class GestionarCelulares {
                 System.out.println("------------------------------");
             });
     }
-    
     
 }

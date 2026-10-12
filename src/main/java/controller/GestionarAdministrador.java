@@ -7,11 +7,13 @@ public class GestionarAdministrador {
     private final Opciones opciones = new Opciones();
     private final GestionarCelulares gestionarCelulares = new GestionarCelulares();
     private final GestionarCliente gestionarCliente = new GestionarCliente();
+    private final GestionarReportes gestionarReportes = new GestionarReportes();
     
     public void iniciar() {
         
         GestionarMarcas gestionarMarcas = new GestionarMarcas();
         GestionarCliente gestionarCliente = new GestionarCliente();
+        
        
             
         System.out.println("  ");
@@ -32,7 +34,7 @@ public class GestionarAdministrador {
                 
                 case 3 -> gestionarCliente.iniciar();
                 
-                case 4 -> System.out.println("Reportes .");
+                case 4 -> gestionarReportes.iniciar();
                 
                 case 5 -> System.out.println("Cerrando sesión...");
             

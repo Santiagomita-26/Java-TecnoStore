@@ -15,6 +15,11 @@ import model.Celular;
 import model.Cliente;
 import model.ProductoVenta;
 import model.Venta;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class ComprasDao {
 
@@ -64,6 +69,7 @@ public class ComprasDao {
         }
 
             // Descontar las unidades del inventario.
+            
         try (CallableStatement sentencia = connection.prepareCall("{CALL descontar_stock(?, ?)}")) {
 
             sentencia.setInt(1, idCelular);
@@ -97,20 +103,20 @@ public class ComprasDao {
     }
     
     
-public List<Venta> listarComprasCliente(Cliente cliente) {
+    public List<Venta> listarComprasCliente(Cliente cliente) {
 
-    List<Venta> ventas = new ArrayList<>();
+            List<Venta> ventas = new ArrayList<>();
 
-    try {
-        Conexion conexion = Conexion.getInstancia();
-        Connection connection = conexion.conexion();
+        try {
+            Conexion conexion = Conexion.getInstancia();
+            Connection connection = conexion.conexion();
 
-        CallableStatement sentencia = connection.prepareCall( "{CALL listar_compras_cliente(?)}");
+            CallableStatement sentencia = connection.prepareCall( "{CALL listar_compras_cliente(?)}");
 
-        sentencia.setInt(1, cliente.getId());
-        ResultSet resultado = sentencia.executeQuery();
+            sentencia.setInt(1, cliente.getId());
+            ResultSet resultado = sentencia.executeQuery();
 
-        Venta ventaActual = null;
+            Venta ventaActual = null;
 
         while (resultado.next()) {
 
@@ -153,4 +159,96 @@ public List<Venta> listarComprasCliente(Cliente cliente) {
 
     return ventas;
     }
+    
+    
+            
+public void exportarVentasDat() {
+
+    Path ruta = Path.of("reporte_ventas.dat");
+
+    try {
+        Conexion conexion = Conexion.getInstancia();
+        Connection connection = conexion.conexion();
+
+        if (connection == null) {
+            System.out.println("No fue posible conectar con la base de datos.");
+            return;
+        }
+
+        try (Connection conn = connection;
+             CallableStatement sentencia = conn.prepareCall("{CALL reporte_ventas_totales()}");
+             ResultSet resultado = sentencia.executeQuery();
+             BufferedWriter escritor = Files.newBufferedWriter(
+                     ruta, StandardCharsets.UTF_8)) {
+
+            int ventaActual = -1;
+            double totalVenta = 0;
+            boolean hayVentas = false;
+
+            escritor.write("========== REPORTE DE VENTAS TECNOSTORE ==========");
+            escritor.newLine();
+            escritor.newLine();
+
+            while (resultado.next()) {
+
+                int idVenta = resultado.getInt("venta_id");
+
+                if (ventaActual != idVenta) {
+
+                    if (ventaActual != -1) {
+                        escritor.write(String.format("TOTAL FINAL: $%,.0f", totalVenta));
+                        escritor.newLine();
+                        escritor.write("==================================================");
+                        escritor.newLine();
+                        escritor.newLine();
+                    }
+
+                    ventaActual = idVenta;
+                    totalVenta = resultado.getDouble("total");
+                    hayVentas = true;
+
+                    escritor.write("VENTA #" + idVenta);
+                    escritor.newLine();
+                    escritor.write("Fecha: "+ resultado.getTimestamp("fecha"));
+                    escritor.newLine();escritor.write("Cliente: "+ resultado.getString("nombre_cliente"));
+                    escritor.newLine();escritor.write("Identificacion: "+ resultado.getLong("identificacion"));
+                    escritor.newLine();
+                    escritor.write("Telefono: "+ resultado.getString("telefono"));
+                    escritor.newLine();
+                    escritor.newLine();
+                    escritor.write("ARTICULOS:");
+                    escritor.newLine();
+                }
+
+                escritor.write("Celular: "+ resultado.getString("nombre_celular"));escritor.newLine();
+                escritor.write("Cantidad: "+ resultado.getInt("cantidad"));
+                escritor.newLine();
+                escritor.write(String.format("Subtotal: $%,.0f",resultado.getDouble("subtotal")));
+                escritor.newLine();
+                escritor.write("----------------------------------------");
+                escritor.newLine();
+            }
+
+            if (hayVentas) {
+                escritor.write(String.format("TOTAL FINAL: $%,.0f", totalVenta));
+                escritor.newLine();
+                escritor.write("==================================================");
+            } else {
+                escritor.write("No hay ventas registradas.");
+            }
+
+            escritor.newLine();
+        }
+
+        System.out.println("Reporte exportado correctamente.");
+        System.out.println("Ubicación: " + ruta.toAbsolutePath());
+
+    } catch (SQLException | IOException e) {
+        System.out.println("Error al exportar el reporte: " + e.getMessage());
+    }
+}
+
+    
+    
+    
 }

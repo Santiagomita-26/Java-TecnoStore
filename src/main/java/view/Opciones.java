@@ -80,5 +80,16 @@ public class Opciones {
         
     }
      
+     public int Reportes() {
+        return v.validarEntero("""
+                                1- Celulares mas vendidos.
+                                2- Celulares con stock bajo.
+                                3- Ventas totales.
+                                4- Exportar ventas a archivo .dat.
+                                5- Salir.
+                                """);
+        
+    }
+     
     
 }

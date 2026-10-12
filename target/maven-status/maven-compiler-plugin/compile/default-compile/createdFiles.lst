@@ -15,6 +15,7 @@ controller\GestionarCelulares.class
 dao\CelularDao.class
 view\Opciones.class
 view\ingresodatos\DatosCliente.class
+controller\GestionarReportes.class
 com\mycompany\tecnostore\TecnoStore.class
 controller\GestionarLogin$1.class
 controller\GestionarLogin.class
