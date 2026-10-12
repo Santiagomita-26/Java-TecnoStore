@@ -1,0 +1,59 @@
+--PROCEDIMIENTO INSERTAR MARCAS--
+
+DELIMITER //
+
+CREATE PROCEDURE insertar_marca(
+    IN p_nombre VARCHAR(100)
+)
+BEGIN
+    INSERT INTO marcas(nombre)
+    VALUES (p_nombre);
+END //
+
+DELIMITER ;
+
+
+--PROCEDIMIENTO LISTAR MARCAS-- 
+
+DELIMITER //
+
+CREATE PROCEDURE listar_marcas()
+
+BEGIN
+    SELECT id, nombre
+    FROM marcas;
+
+END //
+
+DELIMITER ;
+
+
+--PROCEDIMIENTO ACTUALIZAR MARCAS--
+
+DELIMITER //
+
+CREATE PROCEDURE eliminar_marca(
+    IN p_id INT
+)
+BEGIN
+    DELETE FROM marcas
+    WHERE id = p_id;
+END //
+
+DELIMITER ;
+
+
+--PROCEDIMIENTO ELIMINAR MARCAS--
+
+DELIMITER //
+
+CREATE PROCEDURE eliminar_marca(
+    IN p_id INT
+)
+BEGIN
+    DELETE FROM marcas
+    WHERE id = p_id;
+    
+END //
+
+DELIMITER ;
