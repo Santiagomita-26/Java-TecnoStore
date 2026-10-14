@@ -53,6 +53,9 @@ public class GestionarReportes {
         filtrados.forEach(celular -> {System.out.println(celular);System.out.println("------------------------------");});
     }
 
+    
+    // Documentacion
+    
     public void reporteCelularesMasVendidos() {
 
     try {
@@ -121,21 +124,15 @@ public void reporteVentasTotales() {
 
                 System.out.println("\n========== VENTA #" + idVenta + " ==========");
                 System.out.println("Fecha: " + resultado.getTimestamp("fecha"));
-                System.out.println("Cliente: "
-                        + resultado.getString("nombre_cliente"));
-                System.out.println("Identificación: "
-                        + resultado.getLong("identificacion"));
-                System.out.println("Teléfono: "
-                        + resultado.getString("telefono"));
+                System.out.println("Cliente: " + resultado.getString("nombre_cliente"));
+                System.out.println("Identificación: " + resultado.getLong("identificacion"));
+                System.out.println("Teléfono: " + resultado.getString("telefono"));
                 System.out.println("\nArtículos:");
             }
 
-            System.out.println("Celular: "
-                    + resultado.getString("nombre_celular"));
-            System.out.println("Cantidad: "
-                    + resultado.getInt("cantidad"));
-            System.out.printf("Subtotal: $%,.0f%n",
-                    resultado.getDouble("subtotal"));
+            System.out.println("Celular: " + resultado.getString("nombre_celular"));
+            System.out.println("Cantidad: " + resultado.getInt("cantidad"));
+            System.out.printf("Subtotal: $%,.0f%n", resultado.getDouble("subtotal"));
             System.out.println("-----------------------------------");
         }
 
@@ -151,8 +148,7 @@ public void reporteVentasTotales() {
         connection.close();
 
     } catch (SQLException e) {
-        System.out.println(
-                "Error al generar el reporte de ventas: " + e.getMessage()
+        System.out.println("Error al generar el reporte de ventas: " + e.getMessage()
         );
     }
 }

@@ -36,3 +36,5 @@ public class DatosCelular {
     public int ingresarId() {return validaciones.validarEntero("Ingresa el ID del celular:");}
     public int ingresarIdMarca() {return validaciones.validarEntero("Ingresa el ID de la marca:");}
 }
+
+

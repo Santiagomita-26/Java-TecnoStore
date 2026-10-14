@@ -49,7 +49,8 @@ public class ComprasDao {
         idVenta = sentencia.getInt(3);
         }
 
-                // 2. Registrar cada producto y descontar su inventario.
+                //  Registrar cada producto y descontar su inventario.
+                
             for (ProductoVenta producto : venta.getProductos()) {
 
             int idCelular = producto.getCelular().getId();
@@ -58,6 +59,7 @@ public class ComprasDao {
              double subtotal = producto.getCelular().getPrecio()* cantidad;
 
                     // Guardar el detalle de la venta.
+                    
                     try (CallableStatement sentencia = connection.prepareCall("{CALL insertar_detalle_venta(?, ?, ?, ?)}")) {
 
                         sentencia.setInt(1, idVenta);
@@ -68,7 +70,7 @@ public class ComprasDao {
                         sentencia.execute();
         }
 
-            // Descontar las unidades del inventario.
+            // Aqui descuento las unidades del inventario.
             
         try (CallableStatement sentencia = connection.prepareCall("{CALL descontar_stock(?, ?)}")) {
 
@@ -78,7 +80,8 @@ public class ComprasDao {
             sentencia.execute();}
         }
 
-                // 3. Confirmar todos los cambios.
+               // Confirmamos todos los cambios.
+               
                 connection.commit();
 
                 System.out.println("Venta registrada correctamente.");
@@ -178,8 +181,7 @@ public void exportarVentasDat() {
         try (Connection conn = connection;
              CallableStatement sentencia = conn.prepareCall("{CALL reporte_ventas_totales()}");
              ResultSet resultado = sentencia.executeQuery();
-             BufferedWriter escritor = Files.newBufferedWriter(
-                     ruta, StandardCharsets.UTF_8)) {
+             BufferedWriter escritor = Files.newBufferedWriter(ruta, StandardCharsets.UTF_8)) {
 
             int ventaActual = -1;
             double totalVenta = 0;
@@ -212,8 +214,7 @@ public void exportarVentasDat() {
                     escritor.write("Fecha: "+ resultado.getTimestamp("fecha"));
                     escritor.newLine();escritor.write("Cliente: "+ resultado.getString("nombre_cliente"));
                     escritor.newLine();escritor.write("Identificacion: "+ resultado.getLong("identificacion"));
-                    escritor.newLine();
-                    escritor.write("Telefono: "+ resultado.getString("telefono"));
+                    escritor.newLine();escritor.write("Telefono: "+ resultado.getString("telefono"));
                     escritor.newLine();
                     escritor.newLine();
                     escritor.write("ARTICULOS:");
@@ -252,3 +253,6 @@ public void exportarVentasDat() {
     
     
 }
+
+
+        
