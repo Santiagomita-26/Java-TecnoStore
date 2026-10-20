@@ -16,10 +16,17 @@ import model.Cliente;
 import model.ProductoVenta;
 import model.Venta;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 public class ComprasDao {
 
@@ -165,8 +172,10 @@ public class ComprasDao {
     
     
             
+
 public void exportarVentasDat() {
 
+    List<String> lineasReporte = new ArrayList<>();
     Path ruta = Path.of("reporte_ventas.dat");
 
     try {
@@ -177,19 +186,16 @@ public void exportarVentasDat() {
             System.out.println("No fue posible conectar con la base de datos.");
             return;
         }
-
         try (Connection conn = connection;
              CallableStatement sentencia = conn.prepareCall("{CALL reporte_ventas_totales()}");
-             ResultSet resultado = sentencia.executeQuery();
-             BufferedWriter escritor = Files.newBufferedWriter(ruta, StandardCharsets.UTF_8)) {
+             ResultSet resultado = sentencia.executeQuery()) {
 
             int ventaActual = -1;
             double totalVenta = 0;
             boolean hayVentas = false;
 
-            escritor.write("========== REPORTE DE VENTAS TECNOSTORE ==========");
-            escritor.newLine();
-            escritor.newLine();
+            lineasReporte.add("========== REPORTE DE VENTAS TECNOSTORE ==========");
+            lineasReporte.add("");
 
             while (resultado.next()) {
 
@@ -198,50 +204,44 @@ public void exportarVentasDat() {
                 if (ventaActual != idVenta) {
 
                     if (ventaActual != -1) {
-                        escritor.write(String.format("TOTAL FINAL: $%,.0f", totalVenta));
-                        escritor.newLine();
-                        escritor.write("==================================================");
-                        escritor.newLine();
-                        escritor.newLine();
+                        lineasReporte.add(String.format("TOTAL FINAL: $%,.0f", totalVenta));
+                        lineasReporte.add("==================================================");
+                        lineasReporte.add("");
                     }
 
                     ventaActual = idVenta;
                     totalVenta = resultado.getDouble("total");
                     hayVentas = true;
 
-                    escritor.write("VENTA #" + idVenta);
-                    escritor.newLine();
-                    escritor.write("Fecha: "+ resultado.getTimestamp("fecha"));
-                    escritor.newLine();escritor.write("Cliente: "+ resultado.getString("nombre_cliente"));
-                    escritor.newLine();escritor.write("Identificacion: "+ resultado.getLong("identificacion"));
-                    escritor.newLine();escritor.write("Telefono: "+ resultado.getString("telefono"));
-                    escritor.newLine();
-                    escritor.newLine();
-                    escritor.write("ARTICULOS:");
-                    escritor.newLine();
+                    lineasReporte.add("VENTA #" + idVenta);
+                    lineasReporte.add("Fecha: " + resultado.getTimestamp("fecha"));
+                    lineasReporte.add("Cliente: " + resultado.getString("nombre_cliente"));
+                    lineasReporte.add("Identificacion: "+ resultado.getLong("identificacion"));
+                    lineasReporte.add("Telefono: "+ resultado.getString("telefono"));
+                    lineasReporte.add("");
+                    lineasReporte.add("ARTICULOS:");
                 }
 
-                escritor.write("Celular: "+ resultado.getString("nombre_celular"));escritor.newLine();
-                escritor.write("Cantidad: "+ resultado.getInt("cantidad"));
-                escritor.newLine();
-                escritor.write(String.format("Subtotal: $%,.0f",resultado.getDouble("subtotal")));
-                escritor.newLine();
-                escritor.write("----------------------------------------");
-                escritor.newLine();
+                lineasReporte.add("Celular: "+ resultado.getString("nombre_celular"));
+                lineasReporte.add("Cantidad: "+ resultado.getInt("cantidad"));
+                lineasReporte.add(String.format("Subtotal: $%,.0f",resultado.getDouble("subtotal")));
+                lineasReporte.add("----------------------------------------");
             }
 
             if (hayVentas) {
-                escritor.write(String.format("TOTAL FINAL: $%,.0f", totalVenta));
-                escritor.newLine();
-                escritor.write("==================================================");
+                lineasReporte.add(String.format("TOTAL FINAL: $%,.0f", totalVenta));
+                lineasReporte.add("==================================================");
             } else {
-                escritor.write("No hay ventas registradas.");
+                lineasReporte.add("No hay ventas registradas.");
             }
-
-            escritor.newLine();
         }
 
-        System.out.println("Reporte exportado correctamente.");
+        // Serializar la lista en el archivo .dat
+        try (ObjectOutputStream salida = new ObjectOutputStream(
+                Files.newOutputStream(ruta))) { salida.writeObject(lineasReporte);
+        }
+
+        System.out.println("Reporte serializado correctamente.");
         System.out.println("Ubicación: " + ruta.toAbsolutePath());
 
     } catch (SQLException | IOException e) {
@@ -249,7 +249,22 @@ public void exportarVentasDat() {
     }
 }
 
-    
+
+    public void leerVentasDat() {
+    try (ObjectInputStream entrada = new ObjectInputStream(
+            new FileInputStream("reporte_ventas.dat"))) {
+
+        List<String> lineasReporte =
+                (List<String>) entrada.readObject();
+
+        lineasReporte.forEach(System.out::println);
+
+    } catch (IOException | ClassNotFoundException e) {
+        System.out.println(
+            "Error al leer el reporte: " + e.getMessage()
+        );
+    }
+}
     
     
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import model.Celular;
 import view.Opciones;
 
+
 public class GestionarReportes {
 
     private final Opciones opciones = new Opciones();
@@ -30,11 +31,12 @@ public class GestionarReportes {
                 case 2 -> celularesStockBajo();
                 case 3 -> reporteVentasTotales();
                 case 4 -> comprasDao.exportarVentasDat();
-                case 5 -> System.out.println("Saliendo de los reportes...");
+                case 5 -> comprasDao.leerVentasDat();
+                case 6 -> System.out.println("Saliendo de los reportes...");
                 default -> System.out.println("Opción no válida.");
             }
 
-        } while (opcion != 5);
+        } while (opcion != 6);
     }
 
     private void celularesStockBajo() {
@@ -53,8 +55,6 @@ public class GestionarReportes {
         filtrados.forEach(celular -> {System.out.println(celular);System.out.println("------------------------------");});
     }
 
-    
-    // Documentacion
     
     public void reporteCelularesMasVendidos() {
 

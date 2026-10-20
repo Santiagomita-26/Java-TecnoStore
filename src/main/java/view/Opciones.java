@@ -86,7 +86,8 @@ public class Opciones {
                                 2- Celulares con stock bajo.
                                 3- Ventas totales.
                                 4- Exportar ventas a archivo .dat.
-                                5- Salir.
+                                5- Leer archivo .dat.
+                                6- Salir.
                                 """);
         
     }
