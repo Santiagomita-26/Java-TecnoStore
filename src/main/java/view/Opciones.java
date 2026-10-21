@@ -87,7 +87,9 @@ public class Opciones {
                                 3- Ventas totales.
                                 4- Exportar ventas a archivo .dat.
                                 5- Leer archivo .dat.
-                                6- Salir.
+                                6- Exportar Reporte Stock.
+                                7- Leer reporte stock.
+                                8- Salir
                                 """);
         
     }

@@ -26,7 +26,7 @@ public class Conexion {
         Connection c = null;
 
         try {
-            c = DriverManager.getConnection( "jdbc:mysql://localhost:3306/tecnostoremendoza", "root", "Santiagom2022.");
+            c = DriverManager.getConnection( "jdbc:mysql://localhost:3306/tecnostoremendoza", "campus2023", "campus2023");
 
         }catch (SQLException e) {
             System.out.println(e.getMessage());
